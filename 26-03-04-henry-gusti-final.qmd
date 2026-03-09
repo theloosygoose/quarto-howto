@@ -5,8 +5,8 @@ format:
   html:
     code-fold: false 
     toc: true
-    toc-expand: true
-    toc-location: right 
+    toc-expand: 2
+    toc-location: 
     code-links:
       text: This Quarto Document
       icon: file-code
@@ -150,14 +150,9 @@ From there **install** the `Quarto` and `Python` extensions.
 
 
 Once you have installed those extensions create a new file with the extension of `.qmd`
-::: {.content-visible when-format="html"}
 
+![Create Quarto Document](data-science-screenshots/create-document.gif)
 
-:::
-
-::: {.content-visible when-format="pdf"}
- *** Hello This is a placeholder that took me 2 hours to fix. There is supposed to be a gif here but I couldn't get it for pdf documents. Please view the final HTML Page at the bottom of my pdf to view this gif. Thanks!
-:::
 
 ## Setting up Quarto Document
 
