@@ -5,6 +5,9 @@ format:
   html:
     code-fold: false 
 jupyter: python3
+project:
+  type: website
+  output-dir: docs
 ---
 ### Sources for myself and homework?
 
@@ -288,3 +291,10 @@ The d3.js outputs will not be viewable until you Publish to Github Pages
 :::
 
 # Publishing to Github Pages
+
+Finally in order to show your work to the world online you will want to create a [Github Pages](https://docs.github.com/en/pages) website.
+
+For this step I ***highly*** ***highly*** recommend following the Github Pages QuickStart documentation. But, essentially you will want to create a new empty Github repo with the name of `{your-github-usename}.github.io` and create another separate repo for this project folder. Along with that Quarto also has a [Quickstart Guide](https://quarto.org/docs/publishing/github-pages.html)
+
+
+## Final View

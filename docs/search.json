@@ -1,0 +1,79 @@
+[
+  {
+    "objectID": "26-03-04-henry-gusti-final.html",
+    "href": "26-03-04-henry-gusti-final.html",
+    "title": "Final Project",
+    "section": "",
+    "text": "Python for R Users\nHTML in Quarto"
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#creating-a-virtual-environment",
+    "href": "26-03-04-henry-gusti-final.html#creating-a-virtual-environment",
+    "title": "Final Project",
+    "section": "Creating a Virtual Environment",
+    "text": "Creating a Virtual Environment\nWhy use a Virtual Enviroment?\nWhile it is not necessary that you create a virtual environment, as you do more projects (either with Data Science or not) it is helpful to separate all your tools. Or if you work on a project it may not work in the future if the dependency is updated. So it is best practice to separate all of your python projects with their own virtual environment.\nTo create a virtual environment open up your terminal and create a folder for this project.\n\n\n\n\n\n\nTip\n\n\n\nI chose my default Documents directory and created a folder called quarto-files\nThe part highlighted in yellow can be changed for anything but prefix it with a ..\nIt is best if you name this something that makes sense, the default name is .venv but .quarto-venv is another good option!\n\n\n\n\n\nCreating a virtual environment\n\n\nAbove you can see if you type the command ls -la that a new hidden folder appeared .venv or the name of your dependency. The dot in front of the name means that it is a hidden folder that you cannot see. Which for this case is fine! You do not need to edit any of the files in this folder."
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#activating-and-deactivating-your-virtual-enviroment",
+    "href": "26-03-04-henry-gusti-final.html#activating-and-deactivating-your-virtual-enviroment",
+    "title": "Final Project",
+    "section": "Activating and Deactivating Your Virtual Enviroment",
+    "text": "Activating and Deactivating Your Virtual Enviroment\nTo activate your virtual environment run the command in the screenshot below:\n\n\n\nActivating Virtual Enviroment\n\n\n\n\n\n\n\n\nWarning\n\n\n\nIf you are on Windows type source .venv/bin/Activate.psh\n\n\nFrom here you can navigate your directory and interface with your python projects like normal.\n\n\n\n\n\n\nTipGusti’s Analogy\n\n\n\nImagine you have a bunch of backpacks, and each backpack is a virtual environment. By typing the activate command that puts the backpack of your choice and you can take it anywhere and deactivate lets you remove that backpack."
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#installing-dependencies",
+    "href": "26-03-04-henry-gusti-final.html#installing-dependencies",
+    "title": "Final Project",
+    "section": "Installing Dependencies",
+    "text": "Installing Dependencies\nDepending on your OS copy and paste this command into your terminal to install the dependencies. Further below I will write a quick summary for what each does.\n\nMacWindows\n\n\npython3 -m pip install jupyter matplotlib plotly pandas numpy\n\n\npy -m pip install jupyter matplotlib plotly pandas numpy\n\n\n\n\n\n\n\n\n\n\n\nLibrary\nR Equivlent\nExplaination\n\n\n\n\njupyter notebooks\nR Studio, R Markdown\nAllows you to create blocks of executable code between plain text\n\n\nmatplotlib /plotly\nbase R plots, ggplot2\nCreate charts in python\n\n\npandas\nbase R, dplyr\ntransform, manipulate, and manage large amounts of data\n\n\nnumpy\nbase R\nexpanded python maths library\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nAt this point if you have run into any errors here are a couple suggestions.\n\nMake sure your Python version is 3.14\nYour python virtual environment is activated\nCheck installations of python dependencies for errors."
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#setting-up-quarto-document",
+    "href": "26-03-04-henry-gusti-final.html#setting-up-quarto-document",
+    "title": "Final Project",
+    "section": "Setting up Quarto Document",
+    "text": "Setting up Quarto Document\nThese following code blocks can be copy and pasted into Quarto. Also, I am making this document you are reading right now with Quarto! At the end of this tutorial I will share my quarto document so you can see what it looks like!\nCreating a Code Block\nNow this is getting a little meta! Below is a screenshot of what a quarto code block looks like.\n\n\n\nA screenshot of the following codeblock\n\n\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nFinally we get to the coding! Each block I have shown below I have in a separate code block shown in the screenshot above. Quarto tracks your variables across blocks and acts just like a regular python document, but with text in between.\nCopy my header and basic layout from the screenshot below to give a basic scaffolding to build upon.\n\n\n\nBasic Quarto Scaffolding\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you want more information to change the looks or exporting to a PDF Document! Make sure to visit the Quarto Documentation."
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#loading-data-in-pandas",
+    "href": "26-03-04-henry-gusti-final.html#loading-data-in-pandas",
+    "title": "Final Project",
+    "section": "Loading Data in Pandas",
+    "text": "Loading Data in Pandas\n\ndata = pd.read_csv(\"Titanic.csv\")\nojs_define(data = data)\n\ndata.head()\n\n\n\n\n\n\n\n\n\n\n\nPassengerid\nAge\nFare\nSex\nsibsp\nParch\nPclass\nEmbarked\nSurvived\n\n\n\n\n0\n1\n22.0\n7.2500\n0\n1\n0\n3\n2.0\n0\n\n\n1\n2\n38.0\n71.2833\n1\n1\n0\n1\n0.0\n1\n\n\n2\n3\n26.0\n7.9250\n1\n0\n0\n3\n2.0\n1\n\n\n3\n4\n35.0\n53.1000\n1\n1\n0\n1\n2.0\n1\n\n\n4\n5\n35.0\n8.0500\n0\n0\n0\n3\n2.0\n0\n\n\n\n\n\n\n\nHere we can use the function data.head() on our variable data. This acts the same way as head(data) in R. And also call pd.read_csv() which is a pandas function to read our data.\n\n\n\n\n\n\nNote\n\n\n\nI have Titanic.csv in the same folder as my quarto document to keep it simple. Make sure to reference it like reading a csv in R if your data is in another folder."
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#viewing-your-quarto-document",
+    "href": "26-03-04-henry-gusti-final.html#viewing-your-quarto-document",
+    "title": "Final Project",
+    "section": "Viewing Your Quarto Document",
+    "text": "Viewing Your Quarto Document\nTo view your Quarto Document navigate to your directory via your terminal and run the following command:\n\n\n\nPreview Quarto Document\n\n\nQuarto will then open your default browser with an HTML view of your current document. It also refreshes when you save the document.\n\n\n\nQuarto HTML Preview\n\n\n\n\n\n\n\n\nWarning\n\n\n\nMake sure you still have your python virtual environment running or else it will ask that you install dependencies."
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#basic-data-manipulation-with-pandas",
+    "href": "26-03-04-henry-gusti-final.html#basic-data-manipulation-with-pandas",
+    "title": "Final Project",
+    "section": "Basic Data Manipulation with Pandas",
+    "text": "Basic Data Manipulation with Pandas\nNow that we can view our outputs and have our data. Lets create a subset of the titanic dataset that will be easier to make charts with.\n\ndata.head()\n\n\n\n\n\n\n\n\nPassengerid\nAge\nFare\nSex\nsibsp\nParch\nPclass\nEmbarked\nSurvived\n\n\n\n\n0\n1\n22.0\n7.2500\n0\n1\n0\n3\n2.0\n0\n\n\n1\n2\n38.0\n71.2833\n1\n1\n0\n1\n0.0\n1\n\n\n2\n3\n26.0\n7.9250\n1\n0\n0\n3\n2.0\n1\n\n\n3\n4\n35.0\n53.1000\n1\n1\n0\n1\n2.0\n1\n\n\n4\n5\n35.0\n8.0500\n0\n0\n0\n3\n2.0\n0\n\n\n\n\n\n\n\n\n# Group the Dataframe by passenger class\ngrouped = data.groupby('Pclass')\n\n# Get the 'Age' column from each group\nage_col = grouped['Age']\n\n# Find the Mean Ages\nmean_ages = age_col.mean()\n\n# Reset Index (I do this out of habit and it is just good practice to flatten your new data-frames)\navg_age_by_class = mean_ages.reset_index()\n\n\navg_age_by_class\n\n\n\n\n\n\n\n\nPclass\nAge\n\n\n\n\n0\n1\n37.812446\n\n\n1\n2\n29.419675\n\n\n2\n3\n25.750353\n\n\n\n\n\n\n\nNow lets use this data to create a simple bar chart with d3.js"
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#connecting-our-python-data-and-javascript-data",
+    "href": "26-03-04-henry-gusti-final.html#connecting-our-python-data-and-javascript-data",
+    "title": "Final Project",
+    "section": "Connecting our Python Data and Javascript Data",
+    "text": "Connecting our Python Data and Javascript Data\nSince Python and Javascript are two different programming languages, we have to let Quarto know that we would like to pass data between the two of them. Luckily, Quarto does the heavy lifting.\nWrite the following code in a python code block.\n\nojs_define(avg_age_by_class = avg_age_by_class)\n\n\n\n\nojs_define is a method provided by quarto and it is available for python and r. Essentially it allows you to package your data to then send to your ojs code to unpack.\n```ojs\ntranspose(avg_age_by_class)\n```"
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#creating-a-simple-bar-chart",
+    "href": "26-03-04-henry-gusti-final.html#creating-a-simple-bar-chart",
+    "title": "Final Project",
+    "section": "Creating a Simple Bar Chart",
+    "text": "Creating a Simple Bar Chart\nThere are two methods to creating a bar chart. One that uses the Observable JS API which lets us create bar charts quickly using D3.js. The other is making one from scratch using the d3.js API. Let’s start simple with the Observable.js API.\nFind more information about the Observable.js API from their docs.\nObservable.js\n\nojsAPITitanicBarChart = Plot.barY(\n  avg_age_by_class, {x: \"Pclass\", y: \"Age\"}\n)\nojsAPITitanicBarChart.plot({\n  color: {\n    scheme: \"tableau10\"\n  }\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nThe d3.js outputs will not be viewable until you Publish to Github Pages"
+  },
+  {
+    "objectID": "26-03-04-henry-gusti-final.html#final-view",
+    "href": "26-03-04-henry-gusti-final.html#final-view",
+    "title": "Final Project",
+    "section": "Final View",
+    "text": "Final View"
+  }
+]
