@@ -6,7 +6,7 @@ format:
     code-fold: false 
     toc: true
     toc-expand: 2
-    toc-location: 
+    toc-location: right
     code-links:
       text: This Quarto Document
       icon: file-code
