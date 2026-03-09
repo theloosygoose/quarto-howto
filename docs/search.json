@@ -4,7 +4,7 @@
     "href": "26-03-04-henry-gusti-final.html",
     "title": "Final Project",
     "section": "",
-    "text": "Python for R Users\nHTML in Quarto"
+    "text": "To get started you will want to use a code editor. For what it’s worth you may use your text editor of choice, but for this tutorial I will be using VS Code.\nTo download VS Code you will want to navigate to the website and download it for your OS.\nVS Code Website Link\n\n\n\nVS Code Homepage"
   },
   {
     "objectID": "26-03-04-henry-gusti-final.html#creating-a-virtual-environment",
@@ -81,6 +81,6 @@
     "href": "26-03-04-henry-gusti-final.html#final-view",
     "title": "Final Project",
     "section": "Final View!",
-    "text": "Final View!"
+    "text": "Final View!\nHere is the final website! This Document but HTML!\nHopefully d3.js doesn’t come off as too scary. At first it was like that for me as well. Even for this project I didn’t really understand the ins and outs of things but since completing this I have gotten a lot better, and with time so will you! Ciao!\n\nGusti Rama Henry"
   }
 ]

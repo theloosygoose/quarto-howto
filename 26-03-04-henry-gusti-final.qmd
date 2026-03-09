@@ -9,11 +9,6 @@ project:
   type: website
   output-dir: docs
 ---
-### Sources for myself and homework?
-
-[**Python for R Users**](https://rebeccabarter.com/blog/2023-09-11-from_r_to_python)
-
-[**HTML in Quarto**](https://quarto.org/docs/output-formats/html-code.html)
 
 
 # Installing VS Code
@@ -148,9 +143,11 @@ From there **install** the `Quarto` and `Python` extensions.
 
 
 Once you have installed those extensions create a new file with the extension of `.qmd`
+::: {.content-visible when-format="html"}
 
 ![Create Quarto Document](data-science-screenshots/create-document.gif)
 
+:::
 
 ## Setting up Quarto Document
 
@@ -497,3 +494,10 @@ For this step I ***highly*** ***highly*** recommend following the Github Pages Q
 
 
 ## Final View!
+
+Here is the final website! 
+[This Document but HTML!](https://theloosygoose.github.io/quarto-howto/26-03-04-henry-gusti-final.html)
+
+Hopefully d3.js doesn't come off as too scary. At first it was like that for me as well. Even for this project I didn't really understand the ins and outs of things but since completing this I have gotten a lot better, and with time so will you! Ciao!
+
+- Gusti Rama Henry
