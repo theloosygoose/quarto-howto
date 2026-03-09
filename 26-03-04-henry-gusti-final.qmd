@@ -1,0 +1,290 @@
+---
+title: "Final Project"
+author: "Gusti Henry"
+format:
+  html:
+    code-fold: false 
+jupyter: python3
+---
+### Sources for myself and homework?
+
+[**Python for R Users**](https://rebeccabarter.com/blog/2023-09-11-from_r_to_python)
+
+[**HTML in Quarto**](https://quarto.org/docs/output-formats/html-code.html)
+
+
+# Installing VS Code
+
+To get started you will want to use a code editor. For what it's worth you may use your text editor of choice, but for this tutorial I will be using VS Code. 
+
+To download VS Code you will want to navigate to the website and download it for your OS.
+
+[VS Code Website Link](https://code.visualstudio.com/)
+
+![VS Code Homepage](data-science-screenshots/vscode-download.png)
+
+---
+
+# Installing Python
+We will be using the latest version stable version of Python which is `3.14`. *Note! Some of the Python dependencies I will be using will not work with version `3.15`.*
+
+[Python Website Link](https://www.python.org/)
+
+![Python Homepage](data-science-screenshots/python-homepage.png)
+
+
+Make sure to navigate the Python website to download `3.14` again for your OS.
+
+![Python Versions Page](data-science-screenshots/python-download.png)
+
+::: {.callout-warning}
+
+Make sure if you are on Windows or Mac and you are using the installer you check off the `Add to PATH` option in the install software.
+
+![Add to PATH](data-science-screenshots/python-installPATH.png)
+:::
+
+
+## Creating a Virtual Environment
+
+***Why use a Virtual Enviroment?***
+
+While it is not necessary that you create a virtual environment, as you do more projects (either with Data Science or not) it is helpful to separate all your tools. Or if you work on a project it may not work in the future if the dependency is updated. So it is best practice to separate all of your python projects with their own virtual environment.
+
+
+To create a virtual environment open up your terminal and create a folder for this project.
+
+
+::: {.callout-tip}
+*I chose my default Documents directory and created a folder called `quarto-files`*
+
+The part highlighted in ***yellow*** can be changed for anything but prefix it with a `.`.
+
+It is best if you name this something that makes sense, the default name is `.venv` but `.quarto-venv` is another good option!
+:::
+
+![Creating a virtual environment](data-science-screenshots/venv-create.png)
+
+Above you can see if you type the command `ls -la` that a new hidden folder appeared `.venv` or the name of your dependency. The dot in front of the name means that it is a hidden folder that you cannot see. Which for this case is fine! You do not need to edit any of the files in this folder.
+
+## Activating and Deactivating Your Virtual Enviroment
+
+To activate your virtual environment run the command in the screenshot below:
+
+![Activating Virtual Enviroment](data-science-screenshots/venv-activate.png)
+
+::: {.callout-warning}
+If you are on ***Windows*** type `source .venv/bin/Activate.psh`
+:::
+
+From here you can navigate your directory and interface with your python projects like normal. 
+
+::: {.callout-tip}
+## Gusti's Analogy
+
+Imagine you have a bunch of backpacks, and each backpack is a virtual environment. By typing the activate command that puts the backpack of your choice and you can take it anywhere and `deactivate` lets you remove that backpack.
+
+:::
+
+## Installing Dependencies
+
+Depending on your OS copy and paste this command into your terminal to install the dependencies. Further below I will write a quick summary for what each does.
+
+::: {.panel-tabset}
+
+## Mac
+
+```console
+python3 -m pip install jupyter matplotlib plotly pandas numpy
+```
+## Windows
+
+```console
+py -m pip install jupyter matplotlib plotly pandas numpy
+```
+:::
+
+
+| Library            | R Equivlent           | Explaination                                                      |
+|--------------------|-----------------------|-------------------------------------------------------------------|
+| jupyter notebooks   | R Studio, R Markdown  | Allows you to create blocks of executable code between plain text |
+| matplotlib /plotly | base R plots, ggplot2 | Create charts in python                                           |
+| pandas             | base R, dplyr         | transform, manipulate, and manage  large amounts of data          |
+| numpy              | base R                | expanded python maths library                                     |
+
+
+
+
+::: {.callout-important}
+At this point if you have run into any errors here are a couple suggestions.
+
+- Make sure your Python version is 3.14
+- Your python virtual environment is activated
+- Check installations of python dependencies for errors.
+:::
+
+--- 
+
+# Quarto & VS Code
+
+From this point we can do most/all of our work in VS Code. But the principles should be the same for whatever method that you choose.
+
+**Open up VS Code** and navigate to your *Activity Panel* on the left to open up your Extensions Tab.
+
+![Open Extensions Panel](data-science-screenshots/open-extensions.png)
+
+From there **install** the `Quarto` and `Python` extensions.
+
+::: {#fig-extensions layout-ncol=2}
+
+![Search Extensions](data-science-screenshots/search-extensions.png)
+
+![Install Extensions](data-science-screenshots/install-extensions.png)
+
+:::
+
+
+Once you have installed those extensions create a new file with the extension of `.qmd`
+
+![Create Quarto Document](data-science-screenshots/create-document.gif)
+
+
+## Setting up Quarto Document
+
+These following code blocks can be copy and pasted into Quarto. Also, I am making this document you are reading right now with Quarto! At the end of this tutorial I will share my quarto document so you can see what it looks like!
+
+**Creating a Code Block**
+
+Now this is getting a little meta! Below is a screenshot of what a quarto code block looks like.
+
+![A screenshot of the following codeblock](data-science-screenshots/create-code-block.png)
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+Finally we get to the coding! Each block I have shown below I have in a separate code block shown in the screenshot above. ***Quarto*** tracks your variables across blocks and acts just like a regular `python` document, but with text in between.
+
+Copy my header and basic layout from the screenshot below to give a basic scaffolding to build upon. 
+
+![Basic Quarto Scaffolding](data-science-screenshots/quarto-beginning-cs.png)
+
+::: {.callout-note}
+If you want more information to change the looks or exporting to a PDF Document! Make sure to visit the [Quarto Documentation](https://quarto.org/docs/guide/).
+:::
+
+## Loading Data in Pandas
+
+```{python}
+data = pd.read_csv("Titanic.csv")
+ojs_define(data = data)
+
+data.head()
+```
+
+Here we can use the function `data.head()` on our variable `data`. This acts the same way as `head(data)` in R. And also call `pd.read_csv()` which is a `pandas` function to read our data.
+
+::: {.callout-note}
+I have *Titanic.csv* in the same folder as my quarto document to keep it simple. Make sure to reference it like reading a csv in R if your data is in another folder.
+:::
+
+## Viewing Your Quarto Document 
+
+To view your Quarto Document navigate to your directory via your terminal and run the following command:
+
+![Preview Quarto Document](data-science-screenshots/spin-up-doc.png)
+
+Quarto will then open your default browser with an HTML view of your current document. It also refreshes when you save the document.
+
+![Quarto HTML Preview](data-science-screenshots/quarto-beginning-ex.png)
+
+::: {.callout-warning}
+Make sure you still have your python virtual environment running or else it will ask that you install dependencies.
+:::
+
+## Basic Data Manipulation with Pandas
+
+Now that we can view our outputs and have our data. Lets create a subset of the titanic dataset that will be easier to make charts with.
+
+```{python}
+data.head()
+```
+
+```{python}
+# Group the Dataframe by passenger class
+grouped = data.groupby('Pclass')
+
+# Get the 'Age' column from each group
+age_col = grouped['Age']
+
+# Find the Mean Ages
+mean_ages = age_col.mean()
+
+# Reset Index (I do this out of habit and it is just good practice to flatten your new data-frames)
+avg_age_by_class = mean_ages.reset_index()
+
+
+avg_age_by_class
+```
+
+Now lets use this data to create a simple bar chart with `d3.js`
+
+# D3.js
+
+D3.js is a javascript vector library at it's core. What does that mean? Basically it allows you to create HTML objects that can be resized according to data. It is very bare-bones and low-level (don't think low-level programming language). At times this can be very frustrating because it means making a simple bar chart is very complicated. 
+
+But, D3.js shines in very complicated, unique, and interactive visualizations.
+
+Because we are now working within javascript you will want to create a new code-block like we have done before. But instead of creating a `python` labeled code block, we will be naming it `ojs`. This basically allows us to run javascript right in our quarto document.
+
+```{ojs}
+d3 = require("d3@7")
+```
+
+![OJS Block Screenshot](data-science-screenshots/ojs.png)
+
+## Connecting our Python Data and Javascript Data
+
+Since Python and Javascript are two different programming languages, we have to let Quarto know that we would like to pass data between the two of them. Luckily, Quarto does the heavy lifting.
+
+Write the following code in a `python` code block.
+
+```{python}
+ojs_define(avg_age_by_class = avg_age_by_class)
+```
+
+`ojs_define` is a method provided by quarto and it is available for `python` and `r`. Essentially it allows you to package your data to then send to your `ojs` code to unpack.
+
+~~~markdown
+```ojs
+transpose(avg_age_by_class)
+```
+~~~
+
+
+## Creating a Simple Bar Chart
+
+There are two methods to creating a bar chart. One that uses the `Observable JS` API which lets us create bar charts quickly using D3.js. The other is making one from scratch using the `d3.js` API. Let's start simple with the `Observable.js` API.
+
+Find more information about the `Observable.js` API from their [docs](https://observablehq.com/plot/marks/bar).
+
+**Observable.js**
+
+```{ojs}
+ojsAPITitanicBarChart = Plot.barY(
+  avg_age_by_class, {x: "Pclass", y: "Age"}
+)
+ojsAPITitanicBarChart.plot({
+  color: {
+    scheme: "tableau10"
+  }
+})
+```
+
+::: {.callout-warning}
+The d3.js outputs will not be viewable until you Publish to Github Pages
+:::
+
+# Publishing to Github Pages
