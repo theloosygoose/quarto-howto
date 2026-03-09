@@ -5,7 +5,7 @@ format:
   html:
     code-fold: false 
     toc: true
-    toc-expand: 2
+    toc-expand: true
     toc-location: right 
     code-links:
       text: This Quarto Document
