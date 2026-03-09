@@ -225,8 +225,11 @@ age_col = grouped['Age']
 # Find the Mean Ages
 mean_ages = age_col.mean()
 
+# Change Name of Columns
+
 # Reset Index (I do this out of habit and it is just good practice to flatten your new data-frames)
 avg_age_by_class = mean_ages.reset_index()
+avg_age_by_class.columns = ['Class', 'Average Age']
 
 
 avg_age_by_class
@@ -255,7 +258,7 @@ Since Python and Javascript are two different programming languages, we have to 
 Write the following code in a `python` code block.
 
 ```{python}
-ojs_define(avg_age_by_class = avg_age_by_class)
+ojs_define(avg_age_by_class = avg_age_by_class.to_dict(orient="records"))
 ```
 
 `ojs_define` is a method provided by quarto and it is available for `python` and `r`. Essentially it allows you to package your data to then send to your `ojs` code to unpack.
@@ -277,7 +280,7 @@ Find more information about the `Observable.js` API from their [docs](https://ob
 
 ```{ojs}
 ojsAPITitanicBarChart = Plot.barY(
-  avg_age_by_class, {x: "Pclass", y: "Age"}
+  avg_age_by_class, {x: "Class", y: "Average Age", fill: "steelblue"}
 )
 ojsAPITitanicBarChart.plot({
   color: {
@@ -286,9 +289,205 @@ ojsAPITitanicBarChart.plot({
 })
 ```
 
-::: {.callout-warning}
-The d3.js outputs will not be viewable until you Publish to Github Pages
+
+**Base D3.js**
+
+This will be a *bit* more complicated so I have added comments to my code to hopefully break it all down.
+
+::: {.callout-tip}
+Think of d3.js as creating a plot from scratch, literally, measuring a piece of paper, gluing it, etc. etc. It will help you think about all the parts you need.
 :::
+
+**1. Creating SVG Canvas**
+
+```ojs
+
+const svg = d3.create('svg')
+  .attr("width", 500)
+  .attr("height", 320);
+
+```
+
+d3 creates an `svg` element in memory and `.attr()` sets the size of the svg.
+
+**2. Margins**
+
+```ojs
+
+const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+const innerWidth  = width  - margin.left - margin.right;
+const innerHeight = height - margin.top  - margin.bottom;
+
+const g = svg.append('g')
+  .attr("transform", `translate(${margin.left}, ${margin.top})`)
+
+```
+
+Creates margins, this can be *fiddly* don't be afraid to bust out the calculator to do a bit of math if you have to.
+
+**3. X Scale**
+
+```ojs
+
+const x = d3.scaleBand()
+  .domain(DataTransfer.map(d => "Class " + d.Class))
+  .range([0, innerWidth])
+  .padding(0.3);
+
+```
+
+Remember when you were sitting in your statistics class in high school and they were teaching you about domain and range, and you thought it would never matter! Well now it does. `scaleBand` is used for categorical data like `pClass` (we changed it to `Class`) and takes a list of categories (`domain`) and divides the width of `range` across them. I added padding as well.
+
+::: {.callout.tip}
+If you are really into d3.js if you call `x("Class 1") it will return the pixel position of that bar.
+:::
+
+**4. Y Scale**
+
+```ojs
+
+const y = d3.scaleLinear()
+  .domain([0, 45])
+  .range([innerHeight, 0])
+
+```
+
+`scaleLinear` maps a number range to pixels. In this case it is 0 - 45.
+
+**5. Data Joining**
+
+```ojs
+
+g.selectAll("rect")
+  .data(avg_age_by_class)
+  .join("rect")
+
+```
+
+This is a very important concept in D3. Let's break it down:
+
+- `selectAll("rect")` gets all existing `<rect>` HTML elements, we don't have any yet.
+- `.data(avg_age_by_class)` binds our Titanic data to that selection of `<rects>`
+- `.join("rect")` for each point of data d3 creates a `<rect>`. 
+
+
+```ojs
+
+  .attr("x", d => x(.d.class))
+  .attr("y", d => y(d.age))
+  .attr("width", x.bandwidth())
+  .attr("height", d => innerHeight - y(d.age))
+
+```
+
+Now we begin mapping our attributes (`.attr()`) to our data rects. 
+- `x` is our left edge of each bar which we use our x scale to get a pixel position.
+
+- `y` is our top edge - which uses our y scale
+- `width` is set to `x.bandwidth()` which we calculated from `scaleBand()` in Step 3
+- `height` is `innerHeight - y(d.age)` which is the distance from the top of the bar to the baseline.
+
+**6. Axes**
+
+```ojs
+
+g.append("g")
+  .attrr("transform", `translate(0, ${innerHeight})` )
+  .call(d3.axisBottom(x))
+  .call(a => a.select(".domain").remove())
+
+```
+
+
+- `d3.axisBottom(x)` creates an axis generator using your `x` scale which knows our inputs.
+
+- `.call()` passes the `<g>` element into the axis generator, which renders ticks and labels into it. 
+
+-`.select(".domain").remove()` deletes the baseline axis because I like things to look nice! 
+
+## The Chart
+
+Quarto has some troubles breaking down multiple js chucks so it is best to just create your charts in one block.
+
+
+```{ojs}
+chart = {
+  const width = 1000, height = 520;
+  const margin = { top: 20, right: 30, bottom: 50, left: 60 };
+  const innerWidth  = width  - margin.left - margin.right;
+  const innerHeight = height - margin.top  - margin.bottom;
+
+  const svg = d3.create("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  const g = svg.append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  const x = d3.scaleBand()
+    .domain(avg_age_by_class.map(d => "Class " + d.Class))
+    .range([0, innerWidth])
+    .padding(0.3);
+
+  const y = d3.scaleLinear()
+    .domain([0, 45])
+    .range([innerHeight, 0]);
+
+  g.append("g")
+    .attr("stroke", "#e0e0e0")
+    .attr("stroke-dasharray", "4,2")
+    .selectAll("line")
+    .data(y.ticks(5))
+    .join("line")
+      .attr("x1", 0).attr("x2", innerWidth)
+      .attr("y1", d => y(d))
+      .attr("y2", d => y(d));
+
+  g.selectAll("rect")
+    .data(avg_age_by_class)
+    .join("rect")
+    .attr("x",      d => x("Class " + d.Class))
+    .attr("y",      d => y(d["Average Age"]))
+    .attr("width",  x.bandwidth())
+    .attr("height", d => innerHeight - y(d["Average Age"]))
+    .attr("fill", "steelblue")
+    .attr("rx", 4);
+
+  g.selectAll("text.label")
+    .data(avg_age_by_class)
+    .join("text")
+    .attr("x", d => x("Class " + d.Class) + x.bandwidth() / 2)
+    .attr("y", d => y(d["Average Age"]) - 8)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "13px")
+    .attr("fill", "#333")
+    .text(d => d["Average Age"]);
+
+  g.append("g")
+    .attr("transform", `translate(0,${innerHeight})`)
+    .call(d3.axisBottom(x))
+    .call(a => a.select(".domain").remove());
+
+  g.append("g")
+    .call(d3.axisLeft(y).ticks(5))
+    .call(a => a.select(".domain").remove());
+
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -(height / 2))
+    .attr("y", 16)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .attr("fill", "#666")
+    .text("Average Age");
+
+  return svg.node();
+}
+
+chart
+```
+
+*Since I will be uploading my quarto document as well feel free to mess around with these values to change the chart. I added some extra nice things because I can't stand to look at ugly charts!!*
 
 # Publishing to Github Pages
 
@@ -297,4 +496,4 @@ Finally in order to show your work to the world online you will want to create a
 For this step I ***highly*** ***highly*** recommend following the Github Pages QuickStart documentation. But, essentially you will want to create a new empty Github repo with the name of `{your-github-usename}.github.io` and create another separate repo for this project folder. Along with that Quarto also has a [Quickstart Guide](https://quarto.org/docs/publishing/github-pages.html)
 
 
-## Final View
+## Final View!
